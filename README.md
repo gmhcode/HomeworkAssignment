@@ -6,7 +6,7 @@ A sample app demonstrating software design approach and architecture.
 
 I chose to go with UIKit instead of SwiftUI, I assumed that's what was preferred for this project.
 
-I went an interpretation of the MVVM design pattern for testing and ease of data transfer purposes, but I chose to include a controller which handles all the backend calls and parsing.  Doing so makes seperation of concernes and data handling easier to work with across multiple ViewModels.
+I went with an interpretation of the MVVM design pattern for testing and ease of data transfer purposes, but I chose to include a controller which handles all the backend calls and parsing.  Doing so makes seperation of concernes and data handling easier to work with across multiple ViewModels.
 
 Because the keys of the response json when fetching all the messages are dynamic (the name of the person is itself a key to the messages), I created a custom dynamic decoding strategy with CodingKeys. I created a DecodableResponse protocol that the various server responses conform to so I can use the same type when decoding.
 
@@ -40,7 +40,7 @@ I chose to use the Combine framework throughout the project instead of delegates
 
 ## Testing
 
-The unit and UI tests I wrote weren't exhaustive, just some examples how what/how they would be done. If you want the tests to automatically run before an update is launched, there are several approaches. The approach that I see pretty often is just to have a server that runs a script to pull the updated github project, once pulled, have it run an xcode testing script from the terminal, then view the result.
+The unit and UI tests I wrote weren't exhaustive, just some examples how what/how would be done. If you want the tests to automatically run before an update is launched, there are several approaches. The approach that I see pretty often is just to have a server that runs a script to pull the updated github project, once pulled, have it run an xcode testing script from the terminal, then view the result.
  
 
 
