@@ -15,7 +15,7 @@ class MessagesViewController: UIViewController {
     @IBOutlet weak var postMessageButton: UIBarButtonItem!
     
     var messagesViewData = MessagesViewData()
-    var reloadCancellable : AnyCancellable?
+    var cancellable = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,24 +28,32 @@ class MessagesViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         
+        //sets the navigation title
+        messagesViewData.$titleLabel
+            .receive(on: RunLoop.main)
+            .sink {  [weak self] newTitle in
+                self?.navigationItem.title = newTitle
+            }.store(in: &cancellable)
+        
         //reloads tableView when $userMessagesToShow changes its value, which changes its value when UserController.shared.currentUsers changes its value
-        reloadCancellable = messagesViewData.$userMessagesToShow
+        messagesViewData.$userMessagesToShow
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self](_) in
                 self?.tableView.reloadData()
-            })
+            }).store(in: &cancellable)
+        
         //For UI testing
         postMessageButton.accessibilityLabel = "postMessage"
     }
     
     @IBAction func allTapped(_ sender: Any) {
         messagesViewData.fetchAllMessages()
-        navigationItem.title = "ALL MESSAGES"
+        messagesViewData.titleLabel = "ALL MESSAGES"
     }
     
     @IBAction func individualTapped(_ sender: Any) {
         performSegue(withIdentifier: "userSelectionSegue", sender: nil)
-        navigationItem.title = messagesViewData.userMessagesToShow.count > 0 ? messagesViewData.userMessagesToShow[0].name : "no users to show"
+        messagesViewData.titleLabel = messagesViewData.userMessagesToShow.count > 0 ? messagesViewData.userMessagesToShow[0].name : "no users to show"
     }
     
     @IBAction func newMessageTapped(_ sender: Any) {

@@ -11,8 +11,8 @@ import Combine
 class MessagesViewData {
     
     @Published var userMessagesToShow : [User] = []
+    @Published var titleLabel = "ALL MESSAGES"
     var cancellable : AnyCancellable?
-    
     
     init() {
         // when UserController.shared.$currentUsers updates, it will update userMessagesToShow
