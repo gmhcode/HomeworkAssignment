@@ -25,7 +25,7 @@ class UserSelectTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mainVCCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userTVCCell", for: indexPath)
         return userTVCData.cellForRowAt(cell: cell, indexPath: indexPath)
     }
     
