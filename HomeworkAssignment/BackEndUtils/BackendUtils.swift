@@ -11,7 +11,7 @@ import Foundation
 class BackEndUtils {
     struct DynamicCodingKeys: CodingKey {
        var stringValue: String
-       init?(stringValue: String) {
+       init(stringValue: String) {
            self.stringValue = stringValue
        }
        init?(nestedString: String) {

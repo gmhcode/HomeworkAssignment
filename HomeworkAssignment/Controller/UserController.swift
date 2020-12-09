@@ -37,8 +37,8 @@ class UserController: ObservableObject {
             
             let container = try decoder.container(keyedBy: BackEndUtils.DynamicCodingKeys.self)
             
-            let userKeyString = BackEndUtils.DynamicCodingKeys(stringValue: "user")!
-            let messageKeyString = BackEndUtils.DynamicCodingKeys(stringValue: "message")!
+            let userKeyString = BackEndUtils.DynamicCodingKeys(stringValue: "user")
+            let messageKeyString = BackEndUtils.DynamicCodingKeys(stringValue: "message")
             let username = try container.decode(String.self, forKey: userKeyString)
             let messages = try container.decode([Message].self, forKey: messageKeyString)
             
@@ -162,12 +162,13 @@ class UserController: ObservableObject {
             
             let container = try decoder.container(keyedBy: BackEndUtils.DynamicCodingKeys.self)
             
-            let bodyKey = BackEndUtils.DynamicCodingKeys(stringValue: "body")!
+            let bodyKey = BackEndUtils.DynamicCodingKeys(stringValue: "body")
             let mesDataString = try container.decode(String.self, forKey: bodyKey)
             let mesData = mesDataString.data(using: .utf8) ?? Data()
             let messageData = try JSONDecoder().decode(T.self, from: mesData)
             
             users = messageData.array
+            
         }
     }
     
@@ -188,7 +189,7 @@ class UserController: ObservableObject {
             
             for key in container.allKeys {
                 print("🔥key ",key)
-                let keyString = BackEndUtils.DynamicCodingKeys(stringValue: key.stringValue)!
+                let keyString = BackEndUtils.DynamicCodingKeys(stringValue: key.stringValue)
                 
                 let messages = try container.decode([Message].self, forKey: keyString)
                 
