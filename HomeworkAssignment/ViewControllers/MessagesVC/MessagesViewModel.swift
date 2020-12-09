@@ -15,6 +15,7 @@ class MessagesViewData {
     var cancellable = Set<AnyCancellable>()
     
     init() {
+        testPosts()
         // when UserController.shared.$currentUsers updates, it will update userMessagesToShow
         UserController.shared.$currentUsers.sink {[weak self] users in
             self?.userMessagesToShow = users.sorted(by: {$0.name < $1.name})
@@ -33,7 +34,15 @@ class MessagesViewData {
         
         fetchAllMessages()
     }
-    
+    func testPosts() {
+        let semaphore = DispatchSemaphore(value: 0)
+        postNewMessage(user: "john", subject: "bob", message: "Hi bob") {
+            self.postNewMessage(user: "bob", subject: "john", message: "Hi John", completion: {
+                semaphore.signal()
+            })
+        }
+        semaphore.wait()
+    }
     func numberOfSections() -> Int{
         return userMessagesToShow.count
     }
