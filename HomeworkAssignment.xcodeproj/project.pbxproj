@@ -14,7 +14,7 @@
 		907352B0257EBF580077E5C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 907352AE257EBF580077E5C3 /* LaunchScreen.storyboard */; };
 		907352BB257EBF580077E5C3 /* HomeworkAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907352BA257EBF580077E5C3 /* HomeworkAssignmentTests.swift */; };
 		907352C6257EBF580077E5C3 /* HomeworkAssignmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907352C5257EBF580077E5C3 /* HomeworkAssignmentUITests.swift */; };
-		907352E1257FCDE70077E5C3 /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907352E0257FCDE70077E5C3 /* MessageController.swift */; };
+		907352E1257FCDE70077E5C3 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907352E0257FCDE70077E5C3 /* UserController.swift */; };
 		907352E9257FD25D0077E5C3 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907352E8257FD25D0077E5C3 /* MessagesViewController.swift */; };
 		9073530E257FD8500077E5C3 /* BackendUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9073530D257FD8500077E5C3 /* BackendUtils.swift */; };
 		9073531725800F1E0077E5C3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9073531625800F1E0077E5C3 /* Extensions.swift */; };
@@ -57,7 +57,7 @@
 		907352C1257EBF580077E5C3 /* HomeworkAssignmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeworkAssignmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		907352C5257EBF580077E5C3 /* HomeworkAssignmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkAssignmentUITests.swift; sourceTree = "<group>"; };
 		907352C7257EBF580077E5C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		907352E0257FCDE70077E5C3 /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
+		907352E0257FCDE70077E5C3 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		907352E8257FD25D0077E5C3 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		9073530D257FD8500077E5C3 /* BackendUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendUtils.swift; sourceTree = "<group>"; };
 		9073531625800F1E0077E5C3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 		907352DF257FCDCA0077E5C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				907352E0257FCDE70077E5C3 /* MessageController.swift */,
+				907352E0257FCDE70077E5C3 /* UserController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,7 +357,7 @@
 				9073534B25812D610077E5C3 /* MessagesViewModel.swift in Sources */,
 				90735338258123200077E5C3 /* PostMessage.swift in Sources */,
 				907352A4257EBF560077E5C3 /* AppDelegate.swift in Sources */,
-				907352E1257FCDE70077E5C3 /* MessageController.swift in Sources */,
+				907352E1257FCDE70077E5C3 /* UserController.swift in Sources */,
 				907353302580514E0077E5C3 /* User.swift in Sources */,
 				9073535025812E0E0077E5C3 /* UserSelectedViewModel.swift in Sources */,
 				907352A6257EBF560077E5C3 /* SceneDelegate.swift in Sources */,
