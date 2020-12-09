@@ -15,7 +15,7 @@ class UserController: ObservableObject {
     
     static var shared = UserController()
     private let url = URL(string: "https://abraxvasbh.execute-api.us-east-2.amazonaws.com/proto/messages")
-    var state = MessagesState.all
+    @Published var state = MessagesState.all
     @Published var currentUsers = [User]()
     @Published var allUsers = [User]()
     
@@ -112,6 +112,37 @@ class UserController: ObservableObject {
         }.resume()
     }
     
+    func fetchAllUserNames(completion:@escaping ([User]?)->()) {
+        
+        guard let url = url else {print("❇️♊️>>>\(#file) \(#line): guard let failed<<<");completion(nil); return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { [weak self] (data, res, err) in
+            if let error = err {
+                print("❌ There was an error in \(#function) \(error) : \(error.localizedDescription) : \(#file) \(#line)")
+                self?.errorAlertController(error: error)
+                return
+            }
+            guard let data = data else {print("❇️♊️>>>\(#file) \(#line): guard let failed<<<"); completion(nil); return}
+            
+            
+            do {
+                let jsonDecoder = JSONDecoder()
+                let topLvlDict = try jsonDecoder.decode(BackendResponse<AllMessagesData>.self, from: data)
+                
+                self?.allUsers = topLvlDict.users
+                completion(topLvlDict.users)
+                
+            } catch let er{
+                
+                print("❌ There was an error in \(#function) \(er) : \(er.localizedDescription) : \(#file) \(#line)")
+                self?.errorAlertController(error: er)
+                completion(nil)
+            }
+        }.resume()
+    }
     
     ///posts a user and their message
     func postMessages(user: String, subject: String, message: String, completion:@escaping ()->()) {
@@ -134,15 +165,19 @@ class UserController: ObservableObject {
             
             if data != nil  {
                 if self?.state == .all {
-                    self?.fetchAllMessages(completion: {_ in })
+                    self?.fetchAllMessages(completion: {_ in
+                        completion()
+                    })
                 } else {
                     if (self?.currentUsers.contains(where: {$0.name == user}) != false) {
                         let currentUser = self?.currentUsers.filter({$0.name == user}) ?? []
                         
-                        self?.fetchUserMessagesa(user: currentUser[0], completion: {})
+                        self?.fetchUserMessagesa(user: currentUser[0], completion: {
+                            completion()
+                        })
                     }
                 }
-                completion()
+                
             }
         }.resume()
     }

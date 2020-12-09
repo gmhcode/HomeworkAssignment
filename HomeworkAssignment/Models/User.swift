@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User: Codable {
+class User: Codable, Equatable {
     
     let name: String
     let messages: [Message]
@@ -19,5 +19,9 @@ class User: Codable {
     enum CodingKeys: CodingKey {
         case name
         case messages
+    }
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.name == rhs.name
     }
 }

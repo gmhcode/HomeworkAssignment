@@ -6,13 +6,17 @@
 //
 
 import UIKit
-
+import Combine
 class UserSelectTableViewController: UITableViewController {
 
     let userTVCData = UserTVCData()
+    var cancellable : AnyCancellable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cancellable = userTVCData.$users.receive(on: RunLoop.main).sink(receiveValue: {[weak self] _ in
+            self?.tableView.reloadData()
+        })
     }
 
     // MARK: - Table view data source

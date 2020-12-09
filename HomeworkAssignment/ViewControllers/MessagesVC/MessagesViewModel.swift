@@ -12,13 +12,25 @@ class MessagesViewData {
     
     @Published var userMessagesToShow : [User] = []
     @Published var titleLabel = "ALL MESSAGES"
-    var cancellable : AnyCancellable?
+    var cancellable = Set<AnyCancellable>()
     
     init() {
         // when UserController.shared.$currentUsers updates, it will update userMessagesToShow
-        cancellable = UserController.shared.$currentUsers.sink {[weak self] users in
+        UserController.shared.$currentUsers.sink {[weak self] users in
             self?.userMessagesToShow = users.sorted(by: {$0.name < $1.name})
-        }
+            
+        }.store(in: &cancellable)
+        
+        UserController.shared.$state.sink { [weak self] state in
+            guard let strongSelf = self else {print("❇️♊️>>>\(#file) \(#line): guard let failed<<<"); return}
+
+            if state == .all {
+                strongSelf.titleLabel = "ALL MESSAGES"
+            }else {
+                strongSelf.titleLabel = strongSelf.userMessagesToShow.count > 0 ? strongSelf.userMessagesToShow[0].name : "no users to show"
+            }
+        }.store(in: &cancellable)
+        
         fetchAllMessages()
     }
     
@@ -50,11 +62,14 @@ class MessagesViewData {
         UserController.shared.fetchUserMessagesa(user: user) {}
     }
     
-    func postNewMessage(user: String?, subject: String?, message: String?) {
+    func postNewMessage(user: String?, subject: String?, message: String?, completion: (()->())?) {
         if user != "", subject != "", message != "" {
-            UserController.shared.postMessages(user: user ?? "", subject: subject ?? "", message: message ?? "") {}
+            UserController.shared.postMessages(user: user ?? "", subject: subject ?? "", message: message ?? "") {
+                completion?()
+            }
         }else {
             allMustContainValuesAlert()
+            completion?()
         }
     }
     
@@ -84,7 +99,7 @@ class MessagesViewData {
             if ((usernameTextField.text ?? "").contains(" ")) {
                 self?.noNameAlert()
             }else {
-                self?.postNewMessage(user: usernameTextField.text, subject: subjectTextField.text, message: messageTextField.text)
+                self?.postNewMessage(user: usernameTextField.text, subject: subjectTextField.text, message: messageTextField.text, completion: nil)
             }
             
         }

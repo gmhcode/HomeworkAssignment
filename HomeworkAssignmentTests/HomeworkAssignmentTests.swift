@@ -64,18 +64,5 @@ class HomeworkAssignmentTests: XCTestCase {
         let theBool = messagesViewData.numberOfRowsInSection(section: 0) == messagesViewData.userMessagesToShow[0].messages.count
         
         XCTAssertTrue(theBool)
-    }
-    
-    func testMVDPostNewMessage() throws {
-        
-        let newMessageText = "1"
-        
-        messagesViewData.postNewMessage(user: newMessageText, subject: newMessageText, message: newMessageText)
-        sleep(3)
-        
-        let theBool = messagesViewData.userMessagesToShow.contains(where: {$0.name == newMessageText})
-        
-        XCTAssertTrue(theBool)
-    }
-    
+    } 
 }

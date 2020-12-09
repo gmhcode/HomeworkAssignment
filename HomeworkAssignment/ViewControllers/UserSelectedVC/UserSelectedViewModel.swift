@@ -10,8 +10,16 @@ import UIKit
 
 class UserTVCData {
     
-    var users = UserController.shared.allUsers
+    @Published var users = [User]()
 
+    init() {
+        UserController.shared.fetchAllUserNames { [weak self] (users) in
+            guard let users = users else {print("❇️♊️>>>\(#file) \(#line): guard let failed<<<"); return}
+            self?.users = users
+        }
+    }
+    
+    
     func numberOfSections() -> Int{
         return 1
     }
