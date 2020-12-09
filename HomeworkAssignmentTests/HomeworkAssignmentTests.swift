@@ -24,7 +24,6 @@ class HomeworkAssignmentTests: XCTestCase {
         do {
             let jsonDecoder = JSONDecoder()
             let m = try jsonDecoder.decode(UserController.AllMessagesData.self, from: b)
-            print(m.array)
             UserController.shared.currentUsers = m.array
             UserController.shared.allUsers = UserController.shared.currentUsers
             UserController.shared.state = .all

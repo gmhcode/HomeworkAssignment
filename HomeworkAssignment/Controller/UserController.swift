@@ -97,7 +97,6 @@ class UserController: ObservableObject {
                 let jsonDecoder = JSONDecoder()
                 let topLvlDict = try jsonDecoder.decode(BackendResponse<AllMessagesData>.self, from: data)
                 
-                print(topLvlDict.users)
                 self?.currentUsers = topLvlDict.users
                 self?.allUsers = topLvlDict.users
                 self?.state = .all
@@ -223,7 +222,6 @@ class UserController: ObservableObject {
             var tempArray = [User]()
             
             for key in container.allKeys {
-                print("🔥key ",key)
                 let keyString = BackEndUtils.DynamicCodingKeys(stringValue: key.stringValue)
                 
                 let messages = try container.decode([Message].self, forKey: keyString)
