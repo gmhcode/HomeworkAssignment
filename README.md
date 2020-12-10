@@ -36,9 +36,25 @@ protocol DecodableResponse: Decodable {
 ```
 Doing this allowed me to decode an array of users no matter if I was calling the individual user or all messages service call, which significantly reduced complexity and streamlined the service call process.
 
+I chose to use the Combine framework throughout the project instead of delegates or callbacks.  I made the main datasource a publisher so it can seamlessly communicate with the viewModels and we dont have to worry about updating the view models with the new datasource info, as the binding does that for us.
+
+## Trade-Offs
+
 I had considered making a protocol for the network request itself. In the end I thought that would have unnecessarily increased complexity to a point that's hard to justify for such a small project, and so few data models.  Given more data models and a wider variety of network requests, a protocol to "consolidate" (for lack of a better word) them would be useful.
 
-I chose to use the Combine framework throughout the project instead of delegates or callbacks.  I made the main datasource a publisher so it can seamlessly communicate with the viewModels and we dont have to worry about updating the view models with the new datasource info, as the binding does that for us.
+There were some instances ( like when populating the usernames in the UserSelectViewController) where I could have used the existing users instead of making an entirely new service call. But I opted to forgo those kinds of optimizations for the sake of simplicity and keeping this project about design and archetecture instead of maximum optimization.
+```
+class UserTVCData {
+    
+    @Published var users = [User]()
+
+    init() {
+        UserController.shared.fetchAllUserNames { [weak self] (users) in
+            guard let users = users else {print("❇️♊️>>>\(#file) \(#line): guard let failed<<<"); return}
+            self?.users = users
+        }
+    }
+```
 
 ## Testing
 
