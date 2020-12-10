@@ -4,7 +4,7 @@ A sample app demonstrating software design approach and architecture.
 
 ## Approach
 
-I chose to go with UIKit instead of SwiftUI, I assumed that's what was preferred for this project.
+I chose to go with UIKit instead of SwiftUI, I assumed that's what was preferred for this project. Though, it's worth mentioning that I believe it's much easier to swap strategies, and code in general due to the inherent modularity of SwiftUI, which (in my opinion) is desirable for a new project. 
 
 I went with an interpretation of the MVVM design pattern for testing and ease of data transfer purposes, but I chose to include a controller which handles all the backend calls and parsing.  Doing so makes seperation of concernes and data handling easier to work with across multiple ViewModels.
 
